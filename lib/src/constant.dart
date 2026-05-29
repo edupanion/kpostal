@@ -34,6 +34,4 @@ class KpostalConst {
   static const String query = 'query';
   static const String userSelectedType = 'userSelectedType';
   static const String userLanguageType = 'userLanguageType';
-  static const String kakaoLatitude = 'kakaoLat';
-  static const String kakaoLongitude = 'kakaoLng';
 }

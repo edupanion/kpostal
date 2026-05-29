@@ -1,3 +1,25 @@
+## 2.0.0
+
+### BREAKING CHANGES
+
+- Renamed the package from `kpostal` to `webview_flutter_kpostal`.
+  - Update the dependency: `kpostal` → `webview_flutter_kpostal`.
+  - Update the import: `package:kpostal/kpostal.dart` → `package:webview_flutter_kpostal/webview_flutter_kpostal.dart`.
+- Replaced the `flutter_inappwebview` dependency with the official `webview_flutter` plugin.
+  - `InAppWebView` → `WebViewWidget` + `WebViewController`.
+  - JS → Dart bridge now uses `addJavaScriptChannel('onComplete', ...)`.
+  - Page-load completion now uses `NavigationDelegate.onPageFinished`.
+- The search page is now loaded from a bundled asset via `WebViewController.loadHtmlString`
+  with an `https` base URL (so the embedded Kakao postcode iframe can post results back).
+  No remote hosting and no runtime `HttpServer` are used, so `usesCleartextTraffic` /
+  `NSAppTransportSecurity` are no longer required.
+  - **Removed `useLocalServer` and `localPort`** — the page always loads from bundled assets.
+- **Removed Kakao geocoding.** Dropped `kakaoKey`, `useKakaoGeocoder`, and the
+  `Kpostal.kakaoLatitude` / `Kpostal.kakaoLongitude` fields. The selected address still exposes
+  `latitude` / `longitude` resolved through the platform geocoder (`geocoding` plugin).
+
+`KpostalView` and the `Kpostal` result model are otherwise unchanged.
+
 ## 1.1.0
 
 - Updated minimum supported SDK version to Flutter 3.24/Dart 3.5.

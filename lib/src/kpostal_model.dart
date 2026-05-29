@@ -1,6 +1,6 @@
 import 'package:geocoding/geocoding.dart';
-import 'package:kpostal/src/constant.dart';
-import 'package:kpostal/src/log.dart';
+import 'package:webview_flutter_kpostal/src/constant.dart';
+import 'package:webview_flutter_kpostal/src/log.dart';
 
 class Kpostal {
   /// 국가기초구역번호. 2015년 8월 1일부터 시행된 새 우편번호.
@@ -87,12 +87,6 @@ class Kpostal {
   /// 경도(플랫폼 geocoding)
   late double? longitude;
 
-  /// 위도(카카오 geocoding)
-  final double? kakaoLatitude;
-
-  /// 경도(카카오 geocoding)
-  final double? kakaoLongitude;
-
   Kpostal({
     required this.postCode,
     required this.address,
@@ -122,8 +116,6 @@ class Kpostal {
     required this.bname1,
     this.latitude,
     this.longitude,
-    this.kakaoLatitude,
-    this.kakaoLongitude,
   });
 
   factory Kpostal.fromJson(Map json) => Kpostal(
@@ -158,9 +150,6 @@ class Kpostal {
         query: json[KpostalConst.query] as String,
         userSelectedType: json[KpostalConst.userSelectedType] as String,
         userLanguageType: json[KpostalConst.userLanguageType] as String,
-        kakaoLatitude: double.tryParse(json[KpostalConst.kakaoLatitude] ?? ''),
-        kakaoLongitude:
-            double.tryParse(json[KpostalConst.kakaoLongitude] ?? ''),
       );
 
   @override

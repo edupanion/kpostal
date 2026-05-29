@@ -23,7 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  kpostal:
+  webview_flutter_kpostal:
     path: ../
 
 dev_dependencies:

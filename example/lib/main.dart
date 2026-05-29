@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kpostal/kpostal.dart';
+import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,8 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String jibunAddress = '-';
   String latitude = '-';
   String longitude = '-';
-  String kakaoLatitude = '-';
-  String kakaoLongitude = '-';
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (_) => KpostalView(
-                      useLocalServer: true,
-                      localPort: 1024,
-                      // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
                       callback: (Kpostal result) {
                         setState(() {
                           postCode = result.postCode;
@@ -65,8 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           jibunAddress = result.jibunAddress;
                           latitude = result.latitude.toString();
                           longitude = result.longitude.toString();
-                          kakaoLatitude = result.kakaoLatitude.toString();
-                          kakaoLongitude = result.kakaoLongitude.toString();
                         });
                       },
                     ),
@@ -96,9 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Text('LatLng',
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Text('latitude: $latitude / longitude: $longitude'),
-                  const Text('through KAKAO Geocoder',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text('latitude: $kakaoLatitude / longitude: $kakaoLongitude'),
                 ],
               ),
             ),
