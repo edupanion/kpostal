@@ -2,9 +2,6 @@
 
 ### BREAKING CHANGES
 
-- Renamed the package from `kpostal` to `webview_flutter_kpostal`.
-  - Update the dependency: `kpostal` → `webview_flutter_kpostal`.
-  - Update the import: `package:kpostal/kpostal.dart` → `package:webview_flutter_kpostal/webview_flutter_kpostal.dart`.
 - Replaced the `flutter_inappwebview` dependency with the official `webview_flutter` plugin.
   - `InAppWebView` → `WebViewWidget` + `WebViewController`.
   - JS → Dart bridge now uses `addJavaScriptChannel('onComplete', ...)`.

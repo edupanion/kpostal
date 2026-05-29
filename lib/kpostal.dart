@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:webview_flutter_kpostal/src/kpostal_model.dart';
-import 'package:webview_flutter_kpostal/src/log.dart';
+import 'package:kpostal/src/kpostal_model.dart';
+import 'package:kpostal/src/log.dart';
 
 class KpostalView extends StatefulWidget {
   static const String routeName = '/kpostal';
@@ -67,7 +67,7 @@ class _KpostalViewState extends State<KpostalView> {
   ///
   /// 패키지에서 선언한 에셋은 `packages/<package_name>/...` 경로로 번들됩니다.
   static const String _assetPath =
-      'packages/webview_flutter_kpostal/assets/kakao_postcode.html';
+      'packages/kpostal/assets/kakao_postcode.html';
 
   /// 번들 HTML 을 로드할 때 부여할 origin.
   ///

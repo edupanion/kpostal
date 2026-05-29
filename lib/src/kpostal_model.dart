@@ -1,6 +1,6 @@
 import 'package:geocoding/geocoding.dart';
-import 'package:webview_flutter_kpostal/src/constant.dart';
-import 'package:webview_flutter_kpostal/src/log.dart';
+import 'package:kpostal/src/constant.dart';
+import 'package:kpostal/src/log.dart';
 
 class Kpostal {
   /// 국가기초구역번호. 2015년 8월 1일부터 시행된 새 우편번호.

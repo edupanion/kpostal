@@ -1,18 +1,18 @@
-[![pub package](https://img.shields.io/pub/v/webview_flutter_kpostal.svg?label=webview_flutter_kpostal&color=blue)](https://pub.dev/packages/webview_flutter_kpostal)
-[![Pub Likes](https://img.shields.io/pub/likes/webview_flutter_kpostal)](https://pub.dev/packages/webview_flutter_kpostal/score)
+[![pub package](https://img.shields.io/pub/v/kpostal.svg?label=kpostal&color=blue)](https://pub.dev/packages/kpostal)
+[![Pub Likes](https://img.shields.io/pub/likes/kpostal)](https://pub.dev/packages/kpostal/score)
 [![Test](https://github.com/TykanN/kpostal/actions/workflows/test.yml/badge.svg)](https://github.com/TykanN/kpostal/actions/workflows/test.yml)
 
 [![English](https://img.shields.io/badge/Language-English-blueviolet?style=for-the-badge)](README.md)
 [![Korean](https://img.shields.io/badge/Language-Korean-blueviolet?style=for-the-badge)](README.ko-kr.md)
 
-# webview_flutter_kpostal에 대해
+# kpostal에 대해
 
-`webview_flutter_kpostal` 패키지는 [카카오 우편번호 서비스](https://postcode.map.daum.net/guide)를 이용해서 한국 도로명 주소/우편번호를 검색할 수 있습니다.  
+Kpostal 패키지는 [카카오 우편번호 서비스](https://postcode.map.daum.net/guide)를 이용해서 한국 도로명 주소/우편번호를 검색할 수 있습니다.  
 더 이상 지원이 중단된 [Kopo](https://pub.dev/packages/kopo) 패키지를 참고하여 제작되었습니다.
 
 > **[`webview_flutter`](https://pub.dev/packages/webview_flutter) 기반으로 동작합니다.**
-> 이 패키지는 [`kpostal`](https://pub.dev/packages/kpostal)에서 `flutter_inappwebview` 의존성을
-> Flutter 공식 플러그인인 `webview_flutter`로 교체한 포크입니다.
+> **v2.0.0**부터 kpostal 은 `flutter_inappwebview` 대신 Flutter 공식 플러그인인
+> `webview_flutter`를 사용합니다.
 > 전환 배경과 마이그레이션 가이드는 [webview_flutter를 사용하는 이유](#webview_flutter를-사용하는-이유)를 참고하세요.
 
 주소 검색 페이지는 **패키지에 번들**되어, `https` baseUrl 을 지정한
@@ -27,11 +27,11 @@ Null-Safety를 지원합니다.
 
 ## 시작하기
 
-pubspec.yaml 파일에 `webview_flutter_kpostal`을 추가해주세요:
+pubspec.yaml 파일에 `kpostal`을 추가해주세요:
 
 ```yaml
 dependencies:
-  webview_flutter_kpostal:
+  kpostal:
 ```
 
 ## 플랫폼별 설정
@@ -49,7 +49,7 @@ dependencies:
 ## 사용 예시
 
 ```dart
-import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
+import 'package:kpostal/kpostal.dart';
 
 // 콜백 기능으로 사용
 TextButton(
@@ -79,10 +79,10 @@ TextButton(
 
 ## webview_flutter를 사용하는 이유
 
-기존 [`kpostal`](https://pub.dev/packages/kpostal) 패키지는
-[`flutter_inappwebview`](https://pub.dev/packages/flutter_inappwebview)에 의존합니다.
-`webview_flutter_kpostal`은 이를 Flutter 팀이 공식 관리하는
-[`webview_flutter`](https://pub.dev/packages/webview_flutter) 플러그인으로 교체했습니다.
+v1.x 까지 kpostal 은
+[`flutter_inappwebview`](https://pub.dev/packages/flutter_inappwebview)에 의존했습니다.
+v2.0.0 부터는 Flutter 팀이 공식 관리하는
+[`webview_flutter`](https://pub.dev/packages/webview_flutter) 플러그인을 사용합니다.
 
 전환 이유:
 
@@ -93,28 +93,23 @@ TextButton(
 
 ### 내부 변경 사항
 
-| 항목 | `flutter_inappwebview` (kpostal) | `webview_flutter` (이 패키지) |
+| 항목 | v1.x (`flutter_inappwebview`) | v2.0+ (`webview_flutter`) |
 | --- | --- | --- |
 | WebView 위젯 | `InAppWebView` | `WebViewWidget` + `WebViewController` |
 | JS → Dart 브릿지 | `addWebMessageListener` / `addJavaScriptHandler` (`onComplete`) | `addJavaScriptChannel('onComplete', ...)` |
 | 페이지 로드 완료 콜백 | `onLoadStop` | `NavigationDelegate.onPageFinished` |
 | 페이지 호스팅 | 원격 GitHub Pages **또는** `InAppLocalhostServer` | 번들 에셋을 `loadHtmlString` + `https` baseUrl 로 로드 (원격·서버 없음) |
 
-### `kpostal`에서 마이그레이션
+### v1.x 에서 마이그레이션
 
 ```yaml
 # pubspec.yaml
 dependencies:
 -  kpostal: ^1.1.0
-+  webview_flutter_kpostal: ^2.0.0
++  kpostal: ^2.0.0
 ```
 
-```dart
-- import 'package:kpostal/kpostal.dart';
-+ import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
-```
-
-`KpostalView`와 `Kpostal` 결과 모델은 대부분 동일하며, 다음 항목만 제거되었습니다.
+import(`package:kpostal/kpostal.dart`), `KpostalView`, `Kpostal` 결과 모델은 그대로이며, 다음 항목만 제거되었습니다.
 
 - **`useLocalServer` / `localPort` 제거** — 항상 번들 에셋에서 로드하므로 불필요하며, 이들이 요구하던 cleartext / ATS 설정도 함께 사라졌습니다.
 - **카카오 지오코딩 제거** (`kakaoKey`, `useKakaoGeocoder`, `kakaoLatitude` / `kakaoLongitude` 필드). 주소의 `latitude` / `longitude` 는 플랫폼 지오코더로 계속 제공됩니다.

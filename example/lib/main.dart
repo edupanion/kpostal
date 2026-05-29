@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
+import 'package:kpostal/kpostal.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

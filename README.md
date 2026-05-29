@@ -1,19 +1,19 @@
-[![pub package](https://img.shields.io/pub/v/webview_flutter_kpostal.svg?label=webview_flutter_kpostal&color=blue)](https://pub.dev/packages/webview_flutter_kpostal)
-[![Pub Likes](https://img.shields.io/pub/likes/webview_flutter_kpostal)](https://pub.dev/packages/webview_flutter_kpostal/score)
+[![pub package](https://img.shields.io/pub/v/kpostal.svg?label=kpostal&color=blue)](https://pub.dev/packages/kpostal)
+[![Pub Likes](https://img.shields.io/pub/likes/kpostal)](https://pub.dev/packages/kpostal/score)
 [![Test](https://github.com/TykanN/kpostal/actions/workflows/test.yml/badge.svg)](https://github.com/TykanN/kpostal/actions/workflows/test.yml)
 
 [![English](https://img.shields.io/badge/Language-English-9cf?style=for-the-badge)](README.md)
 [![Korean](https://img.shields.io/badge/Language-Korean-9cf?style=for-the-badge)](README.ko-kr.md)
 
-# About webview_flutter_kpostal
+# About kpostal
 
-`webview_flutter_kpostal` can search for Korean postal addresses using the [Kakao postcode service](https://postcode.map.daum.net/guide).  
+Kpostal can search for Korean postal addresses using the [Kakao postcode service](https://postcode.map.daum.net/guide).  
 This package is inspired by the discontinued [Kopo](https://pub.dev/packages/kopo) package.
 
 > **Built on [`webview_flutter`](https://pub.dev/packages/webview_flutter).**
-> This is a fork of [`kpostal`](https://pub.dev/packages/kpostal) that replaces the
-> `flutter_inappwebview` dependency with the official `webview_flutter` plugin.
-> See [Why webview_flutter?](#why-webview_flutter) for the motivation and migration notes.
+> As of **v2.0.0**, kpostal uses the official `webview_flutter` plugin instead of
+> `flutter_inappwebview`. See [Why webview_flutter?](#why-webview_flutter) for the motivation
+> and migration notes.
 
 The search page is **bundled with the package** and loaded from assets via
 `WebViewController.loadHtmlString` with an `https` base URL — there is no remote hosting and
@@ -27,11 +27,11 @@ Support Null-Safety!
 
 ## Getting Started
 
-Add `webview_flutter_kpostal` to your pubspec.yaml file:
+Add `kpostal` to your pubspec.yaml file:
 
 ```yaml
 dependencies:
-  webview_flutter_kpostal:
+  kpostal:
 ```
 
 ## Setup
@@ -51,7 +51,7 @@ postcode script from the network):
 ## Example
 
 ```dart
-import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
+import 'package:kpostal/kpostal.dart';
 
 // Use callback.
 TextButton(
@@ -81,9 +81,9 @@ TextButton(
 
 ## Why webview_flutter?
 
-The original [`kpostal`](https://pub.dev/packages/kpostal) package depends on
+Up to v1.x, kpostal depended on
 [`flutter_inappwebview`](https://pub.dev/packages/flutter_inappwebview).
-`webview_flutter_kpostal` replaces it with the officially maintained
+As of v2.0.0 it uses the officially maintained
 [`webview_flutter`](https://pub.dev/packages/webview_flutter) plugin (from the Flutter team).
 
 Reasons for the switch:
@@ -95,28 +95,23 @@ Reasons for the switch:
 
 ### What changed under the hood
 
-| Concern | `flutter_inappwebview` (kpostal) | `webview_flutter` (this package) |
+| Concern | v1.x (`flutter_inappwebview`) | v2.0+ (`webview_flutter`) |
 | --- | --- | --- |
 | WebView widget | `InAppWebView` | `WebViewWidget` + `WebViewController` |
 | JS → Dart bridge | `addWebMessageListener` / `addJavaScriptHandler` (`onComplete`) | `addJavaScriptChannel('onComplete', ...)` |
 | Page-finished hook | `onLoadStop` | `NavigationDelegate.onPageFinished` |
 | Page hosting | remote GitHub Pages **or** `InAppLocalhostServer` | bundled asset via `loadHtmlString` + `https` base URL (no remote, no server) |
 
-### Migrating from `kpostal`
+### Migrating from v1.x
 
 ```yaml
 # pubspec.yaml
 dependencies:
 -  kpostal: ^1.1.0
-+  webview_flutter_kpostal: ^2.0.0
++  kpostal: ^2.0.0
 ```
 
-```dart
-- import 'package:kpostal/kpostal.dart';
-+ import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
-```
-
-`KpostalView` and the `Kpostal` result model are otherwise the same, with these removals:
+The import (`package:kpostal/kpostal.dart`), `KpostalView`, and the `Kpostal` result model are otherwise the same, with these removals:
 
 - **Removed `useLocalServer` / `localPort`** — the page is always loaded from bundled assets, so these are no longer needed (and the cleartext / ATS settings they required are gone too).
 - **Removed Kakao geocoding** (`kakaoKey`, `useKakaoGeocoder`, and the `kakaoLatitude` / `kakaoLongitude` fields). The address still returns `latitude` / `longitude` via the platform geocoder.

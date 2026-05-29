@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:webview_flutter_kpostal/webview_flutter_kpostal.dart';
+import 'package:kpostal/kpostal.dart';
 
 void main() {
   test('Kpostal 모델 json 파싱', () {
